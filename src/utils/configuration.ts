@@ -12,9 +12,9 @@ let defaultConfig: Configuration
     java_path: '',
     close_action: 0,
     startup_launch: false,
-    last_ip: 'localhost',
-    last_port: '443',
-    language: 'en',
+    last_ip: 'bxgov.cn',
+    last_port: '21452',
+    language: 'chs',
     custom_background: '',
     use_theme_background: false,
     cert_generated: false,
@@ -27,7 +27,7 @@ let defaultConfig: Configuration
     horny_mode: false,
     auto_mongodb: false,
     un_elevated: false,
-    redirect_more: false,
+    redirect_more: true,
     launch_args: '',
 
     // Linux stuff
