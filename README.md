@@ -1,4 +1,4 @@
-EN | [简中](README_zh-CN.md) | [繁中](README_zh-TW.md) | [日本語](README_ja-JP.md)
+1EN | [简中](README_zh-CN.md) | [繁中](README_zh-TW.md) | [日本語](README_ja-JP.md)
 
 # Cultivation
 
