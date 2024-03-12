@@ -26,12 +26,6 @@ export enum GrasscutterElevation {
   Root = 'Root',
 }
 
-export enum GrasscutterElevation {
-  None = 'None',
-  Capability = 'Capability',
-  Root = 'Root',
-}
-
 interface IProps {
   closeFn: () => void
   downloadManager: DownloadHandler
