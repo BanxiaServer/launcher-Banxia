@@ -1,7 +1,7 @@
 {
   "lang_name": "Nederlands",
   "main": {
-    "title": "Cultivation",
+    "title": "Cultivation: Thorny Edition",
     "launch_button": "Start",
     "gc_enable": "Verbind Met Grasscutter",
     "https_enable": "Gebruik HTTPS",
@@ -34,7 +34,9 @@
     "un_elevated": "Voer het spel uit zonder hoogtevrees (geen admin)",
     "redirect_more": "Richt ook andere MHY-spellen",
     "web_cache": "Verwijder de webCaches-map",
-    "launch_args": "Launch Args"
+    "launch_args": "Args starten",
+    "offline_mode": "Offline Modus",
+    "fix_res": "Time-out inloggen verhelpen"
   },
   "downloads": {
     "grasscutter_fullbuild": "Grasscutter Alles-in-één Downloaden",
@@ -66,7 +68,8 @@
     "select_folder": "Select folder...",
     "download": "Download",
     "delete": "Verwijder",
-    "install": "Install"
+    "install": "Install",
+    "fix": "Fix"
   },
   "news": {
     "latest_commits": "Recente Opdrachten",

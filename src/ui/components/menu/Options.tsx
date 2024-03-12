@@ -16,8 +16,15 @@ import DownloadHandler from '../../../utils/download'
 import * as meta from '../../../utils/rsa'
 import HelpButton from '../common/HelpButton'
 import SmallButton from '../common/SmallButton'
-import { confirm } from '@tauri-apps/api/dialog'
+import { ask, confirm } from '@tauri-apps/api/dialog'
 import TextInput from '../common/TextInput'
+import { unzip } from '../../../utils/zipUtils'
+
+export enum GrasscutterElevation {
+  None = 'None',
+  Capability = 'Capability',
+  Root = 'Root',
+}
 
 export enum GrasscutterElevation {
   None = 'None',
@@ -52,6 +59,7 @@ interface IState {
   un_elevated: boolean
   redirect_more: boolean
   launch_args: string
+  offline_mode: boolean
 
   // Linux stuff
   grasscutter_elevation: string
@@ -88,6 +96,7 @@ export default class Options extends React.Component<IProps, IState> {
       un_elevated: false,
       redirect_more: false,
       launch_args: '',
+      offline_mode: false,
 
       // Linux stuff
       grasscutter_elevation: GrasscutterElevation.None,
@@ -150,6 +159,7 @@ export default class Options extends React.Component<IProps, IState> {
       un_elevated: config.un_elevated || false,
       redirect_more: config.redirect_more || false,
       launch_args: config.launch_args,
+      offline_mode: config.offline_mode || false,
 
       // Linux stuff
       grasscutter_elevation: config.grasscutter_elevation || GrasscutterElevation.None,
@@ -191,22 +201,18 @@ export default class Options extends React.Component<IProps, IState> {
 
   async setGrasscutterJar(value: string) {
     setConfigOption('grasscutter_path', value)
-
-    this.setState({
-      grasscutter_path: value,
-    })
-
     const config = await getConfig()
     const path = config.grasscutter_path.replace(/\\/g, '/')
     const folderPath = path.substring(0, path.lastIndexOf('/'))
     const encEnabled = await server.encryptionEnabled(folderPath + '/config.json')
 
-    // Update encryption button when setting new jar
     this.setState({
+      grasscutter_path: value,
       encryption: encEnabled,
     })
 
-    window.location.reload()
+    // Encryption refuses to re-render w/o reload unless updated twice
+    this.forceUpdateEncyption()
   }
 
   setJavaPath(value: string) {
@@ -284,6 +290,16 @@ export default class Options extends React.Component<IProps, IState> {
     }
   }
 
+  async forceUpdateEncyption() {
+    const config = await getConfig()
+    const path = config.grasscutter_path.replace(/\\/g, '/')
+    const folderPath = path.substring(0, path.lastIndexOf('/'))
+
+    this.setState({
+      encryption: await server.encryptionEnabled(folderPath + '/config.json'),
+    })
+  }
+
   async toggleEncryption() {
     const config = await getConfig()
 
@@ -343,6 +359,15 @@ export default class Options extends React.Component<IProps, IState> {
   }
 
   async addMigotoDelay() {
+    if (
+      !(await ask(
+        'Set delay for 3dmigoto loader? This is specifically made for GIMI v6 and earlier. Using it on latest GIMI or SRMI will cause issues!!! \n\nWould you like to continue?',
+        { title: 'GIMI Delay', type: 'warning' }
+      ))
+    ) {
+      return
+    }
+
     invoke('set_migoto_delay', {
       migotoPath: this.state.migoto_path,
     })
@@ -366,6 +391,64 @@ export default class Options extends React.Component<IProps, IState> {
     // Delete the folder
     await invoke('dir_delete', { path: path })
     await invoke('dir_delete', { path: path2 })
+  }
+
+  async fixRes() {
+    const config = await getConfig()
+
+    const path = config.grasscutter_path.replace(/\\/g, '/')
+    let folderPath = path.substring(0, path.lastIndexOf('/'))
+
+    // Set to default if not set
+    if (!path || path === '') {
+      const appdata = await dataDir()
+      folderPath = appdata + 'cultivation\\grasscutter'
+    }
+
+    if (path.includes('/')) {
+      folderPath = path.substring(0, path.lastIndexOf('/'))
+    } else {
+      folderPath = path.substring(0, path.lastIndexOf('\\'))
+    }
+
+    // Check if Grasscutter path exists
+    if (folderPath.length < 1) {
+      alert('Grasscutter not installed or not set! This option can only work when it is installed.')
+      return
+    }
+
+    // Check if resources zip exists
+    if (
+      !(await invoke('dir_exists', {
+        path: folderPath + '\\GC-Resources-4.0.zip',
+      }))
+    ) {
+      alert('Resources are already unzipped or do not exist! Ensure your resources zip is named "GC-Resources-4.0.zip"')
+      return
+    }
+
+    alert(
+      'This may fix white screen issues on login! Please be patient while extraction occurs, it may take some time (5-10 minutes). \n\n !! You will be alerted when it is done !!'
+    )
+
+    // Unzip resources
+    await unzip(folderPath + '\\GC-Resources-4.0.zip', folderPath + '\\', true)
+    // Rename folder to resources
+    invoke('rename', {
+      path: folderPath + '\\Resources',
+      newName: 'resources',
+    })
+
+    // Update config.json to read from folder
+    await server.changeResourcePath(folderPath + '/config.json')
+
+    // Check if Grasscutter is running, and restart if so to apply changes
+    if (await invoke('is_grasscutter_running')) {
+      alert('Automatically restarting Grasscutter for changes to apply!')
+      await invoke('restart_grasscutter')
+    }
+
+    alert('Resource fixing finished! Please launch the server again and try playing.')
   }
 
   async toggleOption(opt: keyof Configuration) {
@@ -542,7 +625,7 @@ export default class Options extends React.Component<IProps, IState> {
                 <Tr text="swag.migoto" />
               </div>
               <div className="OptionValue" id="menuOptionsDirMigoto">
-                <SmallButton onClick={this.addMigotoDelay} id="migotoDelay" contents="help.add_delay"></SmallButton>
+                <SmallButton onClick={this.addMigotoDelay} id="migotoDelay"></SmallButton>
                 <DirInput onChange={this.setMigoto} value={this.state?.migoto_path} extensions={['exe']} />
               </div>
             </div>
@@ -599,6 +682,18 @@ export default class Options extends React.Component<IProps, IState> {
             </div>
           </div>
         ) : null}
+        <div className="OptionSection" id="menuOptionsContainerOffline">
+          <div className="OptionLabel" id="menuOptionsLabelOffline">
+            <Tr text="options.offline_mode" />
+          </div>
+          <div className="OptionValue" id="menuOptionsCheckboxOffline">
+            <Checkbox
+              onChange={() => this.toggleOption('offline_mode')}
+              checked={this.state?.offline_mode}
+              id="offlineMode"
+            />
+          </div>
+        </div>
 
         <Divider />
 
@@ -708,6 +803,15 @@ export default class Options extends React.Component<IProps, IState> {
             onChange={this.setLaunchArgs}
             value={this.state.launch_args}
           />
+        </div>
+
+        <div className="OptionLabel" id="menuOptionsLabelFixRes">
+          <Tr text="options.fix_res" />
+        </div>
+        <div className="OptionValue" id="menuOptionsButtonfixRes">
+          <BigButton onClick={this.fixRes} id="fixRes">
+            <Tr text="components.fix" />
+          </BigButton>
         </div>
       </Menu>
     )

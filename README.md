@@ -1,8 +1,21 @@
 EN | [简中](README_zh-CN.md) | [繁中](README_zh-TW.md) | [日本語](README_ja-JP.md)
 
-# Cultivation
+# Cultivation : Thorny Edition
 
 A game launcher designed to easily proxy traffic from anime game to private servers.
+
+### Thorny Edition Changes:
+
+- Automatically applies and undoes the RSA patch
+- Fixed 3dmigoto paths being broken
+- Fixed "stuck on extracting" issue
+- Better default settings
+- Replace useless stable download with all-in-one download
+- Encryption button actually applies to edited configs
+- Recent commits box shows immediately instead of needing to be clicked on
+- Various QoL improvements
+- Added Korean translation thanks to [@koreako12](https://github.com/koreako12)
+- Some other translation additions (machine translation, let me know if things are wrong)
 
 # Table Of Contents
 
@@ -46,7 +59,7 @@ Download and open the MSI, and once installed, run Cultivation as administrator.
   - If you use multiple Java versions, you can set the Java path to your Java 17 installation (only required if you are running your own server)
 - Decide if you want to download your own server, or just join a public one
   - If joining a public one, you're done. Just click "Connect with Grasscutter" and input the address and port. You do not have to continue these instructions.
-    - If you are getting System Error, or 4214, ask the [Discord support channels](https://discord.gg/grasscutter)
+    - If you are getting System Error, or 4214, ask the [Discord support channels](https://discord.gg/T5vZU6UyeG)
 - Open the "Downloads" menu (top right)
   - Download "Grasscutter All-in-One" (top of the list)
 - Once that is done, click the icon next to "Launch"
@@ -54,7 +67,7 @@ Download and open the MSI, and once installed, run Cultivation as administrator.
   - Click "Connect with Grasscutter"
   - Input `localhost` as the address, and `443` as the port
   - Ensure HTTPS is disabled
-- Any generic "I am getting XYZ error!" should go in the [Discord support channels](https://discord.gg/grasscutter)
+- Any generic "I am getting XYZ error!" should go in the [Discord support channels](https://discord.gg/T5vZU6UyeG)
 - Any specific Cultivation issues should go in [the issues section](/issues)
 - Any Grasscutter server related issues should go in [the Grasscutter issues section](https://github.com/Grasscutters/Grasscutter)
 

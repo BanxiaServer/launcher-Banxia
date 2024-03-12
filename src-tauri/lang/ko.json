@@ -1,7 +1,7 @@
 {
   "lang_name": "한국어",
   "main": {
-    "title": "Cultivation",
+    "title": "Cultivation: Thorny Edition",
     "launch_button": "게임 시작",
     "gc_enable": "Grasscutter 연결",
     "https_enable": "HTTPS 사용",
@@ -35,7 +35,9 @@
     "un_elevated": "게임 비상승 실행(관리자 없음)",
     "redirect_more": "다른 MHY 게임도 리디렉션",
     "web_cache": "webCaches 폴더 삭제",
-    "launch_args": "Launch Args"
+    "launch_args": "실행 인수",
+    "offline_mode": "오프라인 모드",
+    "fix_res": "로그인 시간 초과 수정"
   },
   "downloads": {
     "grasscutter_fullbuild": "올인원 Grasscutter 다운로드",
@@ -67,7 +69,8 @@
     "select_folder": "폴더 선택...",
     "download": "다운로드",
     "delete": "삭제",
-    "install": "설치"
+    "install": "설치",
+    "fix": "Fix"
   },
   "news": {
     "latest_commits": "공지 사항",

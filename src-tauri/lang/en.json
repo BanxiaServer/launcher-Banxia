@@ -1,7 +1,7 @@
 {
   "lang_name": "English",
   "main": {
-    "title": "Cultivation",
+    "title": "Cultivation: Thorny Edition",
     "launch_button": "Launch",
     "gc_enable": "Connect to Grasscutter",
     "https_enable": "Use HTTPS",
@@ -37,7 +37,9 @@
     "check_aagl": "For more options, check the other launcher",
     "grasscutter_elevation": "Method of running GC on restricted ports",
     "web_cache": "Delete webCaches folder",
-    "launch_args": "Launch Args"
+    "launch_args": "Launch Args",
+    "offline_mode": "Offline Mode",
+    "fix_res": "Fix Login Timeout"
   },
   "downloads": {
     "grasscutter_fullbuild": "Download Grasscutter All-in-One",
@@ -69,7 +71,8 @@
     "select_folder": "Select folder...",
     "download": "Download",
     "delete": "Delete",
-    "install": "Install"
+    "install": "Install",
+    "fix": "Fix"
   },
   "news": {
     "latest_commits": "Recent Commits",
@@ -96,7 +99,7 @@
     "akebi_name": "Akebi",
     "migoto_name": "Migoto",
     "reshade_name": "Reshade",
-    "akebi": "Set Akebi/Acrepi Executable",
+    "akebi": "Set Akebi/Other Cheat Executable",
     "migoto": "Set 3DMigoto Executable",
     "reshade": "Set Reshade Injector"
   }

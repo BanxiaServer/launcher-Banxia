@@ -1,7 +1,7 @@
 {
   "lang_name": "繁體中文",
   "main": {
-    "title": "Cultivation",
+    "title": "Cultivation: Thorny Edition",
     "launch_button": "啟動",
     "gc_enable": "以Grasscutter模式連接",
     "https_enable": "使用 HTTPS",
@@ -35,7 +35,9 @@
     "un_elevated": "在不升高的情况下运行游戏（没有管理员）。",
     "redirect_more": "同時重定向其他 MHY 遊戲",
     "web_cache": "刪除 webCaches 文件夾",
-    "launch_args": "Launch Args"
+    "launch_args": "啟動參數",
+    "offline_mode": "離線模式",
+    "fix_res": "修復登入逾時"
   },
   "downloads": {
     "grasscutter_fullbuild": "下載Grasscutter多合一下載",
@@ -67,7 +69,8 @@
     "select_folder": "選擇資料夾...",
     "download": "下載",
     "delete": "刪除",
-    "install": "安裝"
+    "install": "安裝",
+    "fix": "Fix"
   },
   "news": {
     "latest_commits": "最近的PR",

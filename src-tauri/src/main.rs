@@ -108,14 +108,14 @@ async fn parse_args(inp: &Vec<String>) -> Result<Args, ArgsError> {
     std::process::exit(0);
   }
 
+  // Patch if needed
+  if args.value_of("patch")? {
+    patch::patch_game().await;
+  }
+
   if args.value_of("launch-game")? {
     let game_path = config.game_install_path;
-    let game_args: String = args.value_of("game-args").unwrap_or_default();
-
-    // Patch if needed
-    if args.value_of("patch")? {
-      patch::patch_game().await;
-    }
+    let game_args: String = args.value_of("game-args").unwrap_or(String::new());
 
     if game_path.is_some() {
       if args.value_of("non-elevated-game")? {
@@ -154,7 +154,7 @@ async fn parse_args(inp: &Vec<String>) -> Result<Args, ArgsError> {
     pathbuf.push("cultivation");
     pathbuf.push("ca");
 
-    if args.value_of("other_redirects")? {
+    if args.value_of("other-redirects")? {
       proxy::set_redirect_more();
     }
 
@@ -218,7 +218,6 @@ fn main() -> Result<(), ArgsError> {
         system_helpers::open_in_browser,
         system_helpers::install_location,
         system_helpers::is_elevated,
-        system_helpers::set_migoto_target,
         system_helpers::set_migoto_delay,
         system_helpers::wipe_registry,
         system_helpers::get_platform,

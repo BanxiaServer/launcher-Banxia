@@ -1,7 +1,7 @@
 {
   "lang_name": "Francais",
   "main": {
-    "title": "Cultivation",
+    "title": "Cultivation: Thorny Edition",
     "launch_button": "Lancer",
     "gc_enable": "Se connecter avec Grasscutter",
     "https_enable": "Utiliser HTTPS",
@@ -35,7 +35,9 @@
     "un_elevated": "Exécuter le jeu sans élévation (pas d'administrateur)",
     "redirect_more": "Réorienter également les autres jeux MHY",
     "web_cache": "Supprimer le dossier webCaches",
-    "launch_args": "Launch Args"
+    "launch_args": "Arguments de lancement",
+    "offline_mode": "Mode hors ligne",
+    "fix_res": "Réparation du login"
   },
   "downloads": {
     "grasscutter_fullbuild": "Telecharger Grasscutter tout-en-un",
@@ -66,7 +68,8 @@
     "select_folder": "Choisir un dossier...",
     "download": "Télécharger",
     "delete": "Supprimer",
-    "install": "Installer"
+    "install": "Installer",
+    "fix": "Fix"
   },
   "news": {
     "latest_commits": "Commits récents",

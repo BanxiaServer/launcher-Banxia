@@ -35,7 +35,9 @@
     "un_elevated": "Executar o jogo não-elevated (sem admin)",
     "redirect_more": "Também redirecionar outros jogos MHY",
     "web_cache": "Excluir pasta webCaches",
-    "launch_args": "Launch Args"
+    "launch_args": "Argumentos de lançamento",
+    "offline_mode": "Modo offline",
+    "fix_res": "Corrigir o tempo limite de login"
   },
   "downloads": {
     "grasscutter_fullbuild": "Baixar o Grasscutter Tudo-em-Um",
@@ -67,7 +69,8 @@
     "select_folder": "Selecione a pasta...",
     "download": "Baixar",
     "delete": "Deletar",
-    "install": "Instalar"
+    "install": "Instalar",
+    "fix": "Fix"
   },
   "news": {
     "latest_commits": "Commits Recentes",
