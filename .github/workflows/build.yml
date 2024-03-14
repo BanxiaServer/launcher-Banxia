@@ -37,6 +37,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: 1.74.1
+          default: true
 
       - name: Install deps and build
         run: yarn && yarn build --debug
